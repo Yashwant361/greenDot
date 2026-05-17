@@ -1,4 +1,4 @@
-﻿# GreenDot Classroom 🚀
+﻿# GreenDot Classroom 
 
 A full-stack GitHub contribution tracking system designed for teachers and coding mentors to monitor students' daily coding consistency.
 
