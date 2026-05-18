@@ -5,6 +5,14 @@ const registerStudent = async (req, res) => {
         const { name, githubProfile, subject } = req.body;
 
         const githubUsername = githubProfile.split('github.com/')[1];
+
+        const existingStudent = await Student.findOne({
+            githubUsername
+        })
+        if (existingStudent) return res.status(400).json({
+            message: 'Student already registered'
+        })
+
         const student = await Student.create({
             name,
             githubProfile,
@@ -26,7 +34,7 @@ const registerStudent = async (req, res) => {
 
 const getAllStudents = async (req, res) => {
     try {
-        const student = await Student.find();
+        const students = await Student.find();
         res.json(students);
     } catch (error) {
         res.status(500).json({
@@ -37,5 +45,5 @@ const getAllStudents = async (req, res) => {
 
 
 module.exports = {
-    registerStudent,getAllStudents
+    registerStudent, getAllStudents
 }
