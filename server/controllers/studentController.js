@@ -35,6 +35,7 @@ const getAllStudents = async (req, res) => {
     }
 }
 
+
 module.exports = {
     registerStudent,getAllStudents
 }
