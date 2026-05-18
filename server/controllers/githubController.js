@@ -2,7 +2,8 @@ const getGithubContribution = async (req, res) => {
 
    try {
 
-      const username = req.params.username;
+      const username =
+      req.params.username;
 
       const query = `
       query {
@@ -20,7 +21,6 @@ const getGithubContribution = async (req, res) => {
          }
       }
       `;
-      
 
       const response = await fetch(
          "https://api.github.com/graphql",
@@ -28,7 +28,8 @@ const getGithubContribution = async (req, res) => {
             method: "POST",
 
             headers: {
-               "Content-Type": "application/json",
+               "Content-Type":
+               "application/json",
 
                Authorization:
                `Bearer ${process.env.GITHUB_TOKEN}`
@@ -40,39 +41,50 @@ const getGithubContribution = async (req, res) => {
          }
       );
 
-      const result = await response.json();
+      const result =
+      await response.json();
 
-      const weeks =
-      result.data.user.contributionsCollection
-      .contributionCalendar.weeks;
+      // SAFETY CHECK
+      if (
+         !result.data ||
+         !result.data.user
+      ) {
 
-      let todayData = null;
-
-      for (let week of weeks) {
-
-         for (let day of week.contributionDays) {
-
-            if (
-               day.date ===
-               new Date().toISOString().split("T")[0]
-            ) {
-
-               todayData = {
-                  date: day.date,
-                  contributionCount: day.contributionCount
-               };
-
-            }
-
-         }
+         return res.status(404).json({
+            message:
+            "GitHub user not found"
+         });
 
       }
 
-      res.json(todayData);
+      const weeks = result
+      .data.user.contributionsCollection
+      .contributionCalendar.weeks;
+
+      // FLATTEN ALL DAYS
+      const allDays =
+      weeks.flatMap(
+         week => week.contributionDays
+      );
+
+      // GET LATEST DAY
+      const latestDay =
+      allDays[allDays.length - 1];
+
+      // SEND RESPONSE
+      return res.json({
+
+         date:
+         latestDay?.date || "N/A",
+
+         contributionCount:
+         latestDay?.contributionCount || 0
+
+      });
 
    } catch (error) {
 
-      res.status(500).json({
+      return res.status(500).json({
          message: error.message
       });
 
