@@ -289,6 +289,6 @@ Built & Developed by **RayTech Corp** 🚀
 
 ## Contributors
 
-* Ray (Project Lead & Full Stack Developer)
+* Yashwant Ray (Project Lead & Full Stack Developer)
 * Udhave Pingle
 * Aditiya Singh 
