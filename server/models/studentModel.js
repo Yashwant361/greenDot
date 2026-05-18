@@ -11,6 +11,11 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    githubUsername: {
+        type: String,
+        required: true,
+        unique: true
+    },
 
     subject: {
         type: String,
