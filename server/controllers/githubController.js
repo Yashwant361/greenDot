@@ -20,6 +20,7 @@ const getGithubContribution = async (req, res) => {
          }
       }
       `;
+      
 
       const response = await fetch(
          "https://api.github.com/graphql",
