@@ -2,6 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const githubRoute = require('./routes/githubRoutes');
+const studentRoute = require('./routes/studentRoute');
+const authRoute = require('./routes/authRoute');
 const connectDB = require('./db/dbConnection');
 
 dotenv.config();
@@ -14,6 +16,10 @@ app.use(express.json());
 connectDB();
 
 app.use('/github', githubRoute);
+app.use("/students", studentRoute);
+
+// ------techer login---------
+app.use('/auth', authRoute)
 
 app.get('/', (req, res) => {
     res.send('Server Running');
