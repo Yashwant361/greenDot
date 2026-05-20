@@ -1,3 +1,4 @@
+// C:\Users\yashw\Desktop\greenDot\frontend\pages\Register.jsx
 import { useState } from "react";
 import BASE_URL from "../services/api";
 

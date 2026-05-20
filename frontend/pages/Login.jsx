@@ -1,3 +1,4 @@
+// C:\Users\yashw\Desktop\greenDot\frontend\pages\Login.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../services/api";
@@ -6,10 +7,10 @@ function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] =
-  useState("");
+    useState("");
 
   const [password, setPassword] =
-  useState("");
+    useState("");
 
   const handleLogin = async (e) => {
 
@@ -18,13 +19,13 @@ function Login() {
     try {
 
       const response = await fetch(
-        `http://${BASE_URL}:8085/auth/login`,
+        `${BASE_URL}/auth/login`,
         {
           method: "POST",
 
           headers: {
             "Content-Type":
-            "application/json"
+              "application/json"
           },
 
           body: JSON.stringify({
