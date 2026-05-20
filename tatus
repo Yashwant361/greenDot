@@ -1,0 +1,5 @@
+[33mcbf1819[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Fixed api service file
+[33m25952f4[m Refactor: Correct formatting in package.json by adjusting dependencies section
+[33mc064e8c[m Refactor: Restore BASE_URL definition in api.js and update imports in Login and Register components
+[33m320ed91[m Refactor: Move API URL definition to a new file for better organization
+[33mf7e45c1[m Refactor: Move Navbar component to a separate file and update import path in Dashboard
