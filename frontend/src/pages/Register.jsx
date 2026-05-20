@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import BASE_URL from "";
+import BASE_URL from "../services/api";
 
 function Register() {
 
