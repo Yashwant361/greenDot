@@ -1,3 +1,5 @@
+// C:\Users\yashw\Desktop\greenDot\server\db\dbConnection.js
+
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
