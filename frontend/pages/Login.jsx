@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import api from '../services/api'
 function Login() {
 
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ function Login() {
     try {
 
       const response = await fetch(
-        "http://localhost:8085/auth/login",
+        `http://${BASE_URL}:8085/auth/login`,
         {
           method: "POST",
 

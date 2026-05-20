@@ -30,7 +30,7 @@ function Dashboard() {
       }
 
       const response = await fetch(
-        "http://localhost:8085/students",
+        `http://${BASE_URL}:8085/students`,
         {
           headers: {
             Authorization:
@@ -51,7 +51,7 @@ function Dashboard() {
 
             const contributionResponse =
             await fetch(
-              `http://localhost:8085/github/${student.githubUsername}`
+              `http://${BASE_URL}:8085/github/${student.githubUsername}`
             );
 
             const contributionData =
