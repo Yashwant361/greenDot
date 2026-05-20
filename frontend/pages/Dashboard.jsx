@@ -203,7 +203,7 @@ function Dashboard() {
 
                 <tbody>
 
-                  {
+                  {/* {
                     students.length === 0
 
                     ? (
@@ -286,7 +286,7 @@ function Dashboard() {
                       ))
 
                     )
-                  }
+                  } */}
 
                 </tbody>
 
