@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import BASE_URL from "../services/api";
+
 function Dashboard() {
 
   const [students, setStudents] =
@@ -29,8 +30,9 @@ function Dashboard() {
 
       }
 
+      // FETCH STUDENTS
       const response = await fetch(
-        `${BASE_URL}:8085/students`,
+        `${BASE_URL}/students`,
         {
           headers: {
             Authorization:
@@ -42,6 +44,7 @@ function Dashboard() {
       const data =
       await response.json();
 
+      // FETCH GITHUB CONTRIBUTIONS
       const updatedStudents =
       await Promise.all(
 
@@ -51,7 +54,7 @@ function Dashboard() {
 
             const contributionResponse =
             await fetch(
-              `http://${BASE_URL}:8085/github/${student.githubUsername}`
+              `${BASE_URL}/github/${student.githubUsername}`
             );
 
             const contributionData =
@@ -71,7 +74,9 @@ function Dashboard() {
 
             };
 
-          } catch {
+          } catch (error) {
+
+            console.log(error);
 
             return {
 
@@ -88,6 +93,8 @@ function Dashboard() {
         })
 
       );
+
+      console.log(updatedStudents);
 
       setStudents(updatedStudents);
 
@@ -122,7 +129,7 @@ function Dashboard() {
         "
       >
 
-        {/* <h1
+        <h1
           className="
           text-4xl
           font-bold
@@ -130,9 +137,10 @@ function Dashboard() {
           "
         >
           GreenDot Classroom Dashboard
-        </h1> */}
+        </h1>
 
         {
+
           loading
 
           ? (
@@ -190,10 +198,6 @@ function Dashboard() {
                     </th>
 
                     <th className="p-4 whitespace-nowrap">
-                      Date
-                    </th>
-
-                    <th className="p-4 whitespace-nowrap">
                       Status
                     </th>
 
@@ -203,7 +207,8 @@ function Dashboard() {
 
                 <tbody>
 
-                  {/* {
+                  {
+
                     students.length === 0
 
                     ? (
@@ -211,7 +216,7 @@ function Dashboard() {
                       <tr>
 
                         <td
-                          colSpan="6"
+                          colSpan="5"
 
                           className="
                           text-center
@@ -259,24 +264,16 @@ function Dashboard() {
                             {student.commits}
                           </td>
 
-                          <td
-                            className="
-                            p-4
-                            whitespace-nowrap
-                            text-yellow-400
-                            "
-                          >
-                            {student.date || "N/A"}
-                          </td>
-
                           <td className="p-4 whitespace-nowrap">
 
                             {
+
                               student.commits >= 6
 
                               ? "✅ Completed"
 
                               : "❌ Pending"
+
                             }
 
                           </td>
@@ -286,7 +283,8 @@ function Dashboard() {
                       ))
 
                     )
-                  } */}
+
+                  }
 
                 </tbody>
 
@@ -295,6 +293,7 @@ function Dashboard() {
             </div>
 
           )
+
         }
 
       </div>
