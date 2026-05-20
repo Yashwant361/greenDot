@@ -122,7 +122,7 @@ function Dashboard() {
         "
       >
 
-        <h1
+        {/* <h1
           className="
           text-4xl
           font-bold
@@ -130,7 +130,7 @@ function Dashboard() {
           "
         >
           GreenDot Classroom Dashboard
-        </h1>
+        </h1> */}
 
         {
           loading
