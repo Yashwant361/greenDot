@@ -30,7 +30,7 @@ function Dashboard() {
       }
 
       const response = await fetch(
-        `http://${BASE_URL}:8085/students`,
+        `${BASE_URL}:8085/students`,
         {
           headers: {
             Authorization:
