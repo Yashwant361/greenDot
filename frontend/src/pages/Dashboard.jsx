@@ -1,16 +1,10 @@
 import { useState } from "react";
 
-import Navbar
-from "../components/Navbar";
-
-import StudentTable
-from "../components/StudentTable";
-
-import Loading
-from "../components/Loading";
-
-import useStudents
-from "../hooks/useStudents";
+import { useState } from "react";
+import Navbar from "../components/Navbar";
+import StudentTable from "../components/StudentTable";
+import Loading from "../components/Loading";
+import useStudents from "../hooks/useStudents";
 
 function Dashboard() {
 
