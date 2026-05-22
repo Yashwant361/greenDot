@@ -6,6 +6,7 @@ import {
   Route
 } from "react-router-dom";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -35,9 +36,12 @@ function App() {
           element={<Register />}
         />
 
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+
         />
 
         <Route

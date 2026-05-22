@@ -50,22 +50,25 @@ function Navbar({
       "
     >
 
+      {/* LOGO */}
+
       <h1
         className="
         text-2xl
         font-bold
+        text-green-400
         "
       >
         GreenDot Classroom
       </h1>
 
-      {/* SUBJECT BUTTONS */}
+      {/* SUBJECT FILTER */}
 
       <div
         className="
         flex
-        gap-2
         flex-wrap
+        gap-2
         "
       >
 

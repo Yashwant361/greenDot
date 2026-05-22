@@ -1,45 +1,47 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BASE_URL from "../services/api";
+
+
+import { loginTeacher }
+from "../services/authService";
+
 function Login() {
 
   const navigate = useNavigate();
 
   const [email, setEmail] =
-    useState("");
+  useState("");
 
   const [password, setPassword] =
-    useState("");
+  useState("");
 
-  const handleLogin = async (e) => {
+  const [loading, setLoading] =
+  useState(false);
+
+  const handleLogin =
+  async (e) => {
 
     e.preventDefault();
 
+    if (!email || !password) {
+
+      alert("Please fill all fields");
+
+      return;
+
+    }
+
     try {
 
-      const response = await fetch(
-        `${BASE_URL}/auth/login`,
-        {
-          method: "POST",
+      setLoading(true);
 
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-            email,
-            password
-          })
-        }
+      const data =
+      await loginTeacher(
+        email,
+        password
       );
 
-      const data = await response.json();
-
-      console.log(data);
-
-      if (response.ok) {
+      if (data.token) {
 
         localStorage.setItem(
           "token",
@@ -57,6 +59,12 @@ function Login() {
     } catch (error) {
 
       console.log(error);
+
+      alert("Login Failed");
+
+    } finally {
+
+      setLoading(false);
 
     }
 
@@ -76,6 +84,7 @@ function Login() {
     >
 
       <form
+
         onSubmit={handleLogin}
 
         className="
@@ -100,6 +109,7 @@ function Login() {
         </h1>
 
         <input
+
           type="email"
 
           placeholder="Enter Email"
@@ -119,6 +129,7 @@ function Login() {
         />
 
         <input
+
           type="password"
 
           placeholder="Enter Password"
@@ -138,7 +149,10 @@ function Login() {
         />
 
         <button
+
           type="submit"
+
+          disabled={loading}
 
           className="
           bg-green-500
@@ -146,9 +160,20 @@ function Login() {
           rounded
           font-semibold
           hover:bg-green-600
+          disabled:bg-gray-600
           "
         >
-          Login
+
+          {
+
+            loading
+
+            ? "Logging In..."
+
+            : "Login"
+
+          }
+
         </button>
 
       </form>

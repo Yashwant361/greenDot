@@ -1,304 +1,107 @@
-import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import BASE_URL from "../services/api";
+import { useState } from "react";
+
+import Navbar
+from "../components/Navbar";
+
+import StudentTable
+from "../components/StudentTable";
+
+import Loading
+from "../components/Loading";
+
+import useStudents
+from "../hooks/useStudents";
 
 function Dashboard() {
 
-  const [students, setStudents] =
-  useState([]);
+  const {
 
-  const [loading, setLoading] =
-  useState(true);
+    students,
 
-  useEffect(() => {
+    loading
 
-    fetchStudents();
+  } = useStudents();
 
-  }, []);
+  const [
 
-  const fetchStudents = async () => {
+    selectedSubject,
 
-    try {
+    setSelectedSubject
 
-      const token =
-      localStorage.getItem("token");
+  ] = useState("All");
 
-      if (!token) {
+  const filteredStudents =
 
-        alert("Please login first");
-        return;
+    selectedSubject === "All"
 
-      }
+    ? students
 
-      // FETCH STUDENTS
-      const response = await fetch(
-        `${BASE_URL}/students`,
-        {
-          headers: {
-            Authorization:
-            `Bearer ${token}`
-          }
-        }
-      );
+    : students.filter(
 
-      const data =
-      await response.json();
+        (student) =>
 
-      // FETCH GITHUB CONTRIBUTIONS
-      const updatedStudents =
-      await Promise.all(
-
-        data.map(async (student) => {
-
-          try {
-
-            const contributionResponse =
-            await fetch(
-              `${BASE_URL}/github/${student.githubUsername}`
-            );
-
-            const contributionData =
-            await contributionResponse.json();
-
-            return {
-
-              ...student,
-
-              commits:
-              contributionData
-              ?.contributionCount || 0,
-
-              date:
-              contributionData
-              ?.date || "N/A"
-
-            };
-
-          } catch (error) {
-
-            console.log(error);
-
-            return {
-
-              ...student,
-
-              commits: 0,
-
-              date: "N/A"
-
-            };
-
-          }
-
-        })
+          student.subject ===
+          selectedSubject
 
       );
-
-      console.log(updatedStudents);
-
-      setStudents(updatedStudents);
-
-    } catch (error) {
-
-      console.log(error);
-
-      alert(
-        "Failed to fetch students"
-      );
-
-    } finally {
-
-      setLoading(false);
-
-    }
-
-  };
 
   return (
 
-    <>
+    <div
+      className="
+      min-h-screen
+      bg-gray-900
+      "
+    >
 
-      <Navbar />
+      <Navbar
 
-      <div
-        className="
-        min-h-screen
-        bg-gray-900
-        text-white
-        p-10
-        "
-      >
+        selectedSubject={
+          selectedSubject
+        }
 
-        {/* <h1
+        setSelectedSubject={
+          setSelectedSubject
+        }
+
+      />
+
+      <div className="p-8">
+
+        <h1
           className="
-          text-4xl
+          text-3xl
           font-bold
-          mb-8
+          text-white
+          mb-6
           "
         >
-          GreenDot Classroom Dashboard
-        </h1> */}
 
-        {/* {
+          {selectedSubject} Students
+
+        </h1>
+
+        {
 
           loading
 
-          ? (
-
-            <h1
-              className="
-              text-2xl
-              "
-            >
-              Loading...
-            </h1>
-
-          )
+          ? <Loading />
 
           : (
 
-            <div
-              className="
-              overflow-x-auto
-              border
-              border-gray-700
-              rounded-lg
-              "
-            >
+              <StudentTable
+                students={
+                  filteredStudents
+                }
+              />
 
-              <table
-                className="
-                min-w-full
-                table-auto
-                "
-              >
+            )
 
-                <thead>
-
-                  <tr
-                    className="
-                    bg-gray-800
-                    "
-                  >
-
-                    <th className="p-4 whitespace-nowrap">
-                      Name
-                    </th>
-
-                    <th className="p-4 whitespace-nowrap">
-                      Subject
-                    </th>
-
-                    <th className="p-4 whitespace-nowrap">
-                      GitHub
-                    </th>
-
-                    <th className="p-4 whitespace-nowrap">
-                      Commits
-                    </th>
-
-                    <th className="p-4 whitespace-nowrap">
-                      Status
-                    </th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody>
-
-                  {
-
-                    students.length === 0
-
-                    ? (
-
-                      <tr>
-
-                        <td
-                          colSpan="5"
-
-                          className="
-                          text-center
-                          p-6
-                          "
-                        >
-                          No Students Found
-                        </td>
-
-                      </tr>
-
-                    )
-
-                    : (
-
-                      students.map((student) => (
-
-                        <tr
-
-                          key={
-                            student.githubUsername
-                          }
-
-                          className="
-                          text-center
-                          border-t
-                          border-gray-700
-                          hover:bg-gray-800
-                          "
-                        >
-
-                          <td className="p-4 whitespace-nowrap">
-                            {student.name}
-                          </td>
-
-                          <td className="p-4 whitespace-nowrap">
-                            {student.subject}
-                          </td>
-
-                          <td className="p-4 whitespace-nowrap">
-                            {student.githubUsername}
-                          </td>
-
-                          <td className="p-4 whitespace-nowrap">
-                            {student.commits}
-                          </td>
-
-                          <td className="p-4 whitespace-nowrap">
-
-                            {
-
-                              student.commits >= 6
-
-                              ? "✅ Completed"
-
-                              : "❌ Pending"
-
-                            }
-
-                          </td>
-
-                        </tr>
-
-                      ))
-
-                    )
-
-                  }
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          )
-
-        } */}
+        }
 
       </div>
 
-    </>
+    </div>
 
   );
 
