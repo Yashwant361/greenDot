@@ -1,126 +1,157 @@
+# 🟢 GreenDot Classroom
 
-# GreenDot Classroom 
+A modern MERN stack classroom monitoring platform that tracks students' daily GitHub coding activity automatically.
 
-GreenDot Classroom is a MERN-based classroom contribution tracking system designed for coding mentors, tutors, and programming instructors.
+GreenDot Classroom helps tutors and coding mentors monitor student consistency, coding discipline, and daily GitHub contribution activity through a centralized dashboard instead of manually checking multiple GitHub profiles.
 
-The platform automatically tracks students' daily GitHub contributions and provides a centralized dashboard where tutors can monitor coding consistency without manually checking every GitHub profile.
+---
+
+# 🚀 Live Demo
+
+## Frontend
+
+https://green-dot-ig1j.vercel.app
+
+## Backend API
+
+https://greendot-ehhw.onrender.com
 
 ---
 
 # ✨ Features
 
-- Student Registration System
-- Tutor Authentication using JWT
-- Protected Dashboard Routes
-- GitHub Contribution Tracking
-- Daily Commit Monitoring
-- Subject-Based Filtering
-- Real-Time GitHub GraphQL API Integration
-- Contribution Completion Status
-- Responsive Dashboard UI
+* 🔐 JWT Protected Tutor Authentication
+* 👨‍🎓 Student Registration System
+* 📊 GitHub Daily Contribution Tracking
+* 📅 Daily Commit Monitoring
+* 📚 Subject-Based Student Filtering
+* 🧠 Reusable Component Architecture
+* ⚡ Real-Time GitHub API Integration
+* 🌐 Fully Deployed MERN Stack Application
+* 📱 Responsive Dashboard UI
+* 🛡️ Protected Routes
+* 🔄 CI/CD Deployment Workflow
 
 ---
 
-# 🛠 Tech Stack
+# 🏗️ Tech Stack
 
 ## Frontend
-- React.js
-- Tailwind CSS
-- React Router DOM
-- Fetch API
+
+* React.js
+* Vite
+* Tailwind CSS
+* React Router DOM
 
 ## Backend
-- Node.js
-- Express.js
-- JWT Authentication
-- GitHub GraphQL API
+
+* Node.js
+* Express.js
+* JWT Authentication
+* GitHub GraphQL API
 
 ## Database
-- MongoDB
-- Mongoose
+
+* MongoDB Atlas
+* Mongoose
+
+## Deployment
+
+* Vercel (Frontend)
+* Render (Backend)
 
 ---
 
-# 📁 Project Structure
+# 📁 Project Architecture
 
 ```bash
 greenDot/
 │
 ├── frontend/
+│   │
+│   ├── src/
+│   │   │
+│   │   ├── components/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── StudentTable.jsx
+│   │   │   ├── StudentRow.jsx
+│   │   │   ├── Loading.jsx
+│   │   │   └── EmptyState.jsx
+│   │   │
+│   │   ├── pages/
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   └── PageNotFound.jsx
+│   │   │
+│   │   ├── services/
+│   │   │   ├── api.js
+│   │   │   ├── authService.js
+│   │   │   ├── studentService.js
+│   │   │   └── githubService.js
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useStudents.js
+│   │   │
+│   │   ├── routes/
+│   │   │   └── ProtectedRoute.jsx
+│   │   │
+│   │   ├── utils/
+│   │   │   └── constants.js
+│   │   │
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   └── package.json
 │
-└── server/
+├── server/
+│   │
+│   ├── controllers/
+│   ├── routes/
+│   ├── models/
+│   ├── middleware/
+│   ├── db/
+│   ├── config/
+│   ├── server.js
+│   └── package.json
+│
+└── README.md
 ```
 
 ---
 
-# 📂 Frontend Structure
+# 🔑 Environment Variables
 
-```bash
-frontend/
-│
-├── src/
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Login.jsx
-│   │   ├── Register.jsx
-│   │   ├── Dashboard.jsx
-│   │   └── PageNotFound.jsx
-│   │
-│   ├── components/
-│   │   └── Navbar.jsx
-│   │
-│   ├── services/
-│   │   └── api.js
-│   │
-│   ├── App.jsx
-│   └── main.jsx
-```
-
----
-
-# 📂 Backend Structure
-
-```bash
-server/
-│
-├── controllers/
-├── models/
-├── routes/
-├── middleware/
-├── config/
-├── server.js
-└── .env
-```
-
----
-
-# ⚙️ Environment Variables
-
-Create a `.env` file inside the `server/` directory.
+## Backend `.env`
 
 ```env
-PORT=0000
+PORT=8085
 
 MONGO_URL=your_mongodb_connection_string
 
-JWT_SECRET=your_jwt_secret
+JWT_SECRET=your_secret_key
+
+ADMIN_EMAIL=your_admin_email
+
+ADMIN_PASSWORD=your_admin_password
 
 GITHUB_TOKEN=your_github_personal_access_token
 ```
 
 ---
 
-# 🚀 Installation & Setup
+# ⚙️ Installation & Setup
 
 ## 1️⃣ Clone Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/Yashwant361/greenDot.git
 ```
 
 ---
 
-## 2️⃣ Install Frontend Dependencies
+## 2️⃣ Frontend Setup
 
 ```bash
 cd frontend
@@ -130,9 +161,15 @@ npm install
 npm run dev
 ```
 
+Frontend runs on:
+
+```bash
+http://localhost:5173
+```
+
 ---
 
-## 3️⃣ Install Backend Dependencies
+## 3️⃣ Backend Setup
 
 ```bash
 cd server
@@ -142,11 +179,27 @@ npm install
 npm run dev
 ```
 
+Backend runs on:
+
+```bash
+http://localhost:8085
+```
+
 ---
 
-# 🔗 API Endpoints
+# 📡 API Endpoints
 
-## Student Routes
+## Authentication
+
+### Tutor Login
+
+```http
+POST /auth/login
+```
+
+---
+
+## Students
 
 ### Register Student
 
@@ -162,17 +215,7 @@ GET /students
 
 ---
 
-## Authentication Routes
-
-### Tutor Login
-
-```http
-POST /auth/login
-```
-
----
-
-## GitHub Routes
+## GitHub
 
 ### Get Daily Contributions
 
@@ -180,63 +223,86 @@ POST /auth/login
 GET /github/:username
 ```
 
-### Example
+Example:
 
 ```http
-GET /github/User123
+GET /github/Yashwant361
 ```
 
 ---
 
-# 📊 Dashboard Features
-
-- View all registered students
-- Monitor daily GitHub commits
-- Filter students subject-wise
-- Track coding consistency
-- Identify completed/pending contribution targets
-
----
-
-# ✅ Contribution Status Logic
+# 📊 Contribution Status Logic
 
 ```js
-commit >= 6
+commits >= 6
 ```
 
-- ✅ Completed
-- ❌ Pending
+✅ Completed
+
+Else:
+
+❌ Pending
 
 ---
 
-# 🔮 Future Improvements
+# 🔥 Deployment Workflow
 
-- Contribution Streak Tracking
-- Charts & Analytics
-- Weekly Reports
-- Student Profiles
-- Leaderboard System
-- Attendance Integration
-- Dark / Light Theme
-- Fully Responsive Mobile UI
-- Cloud Deployment
+## Frontend Deployment
+
+* Vercel
+
+## Backend Deployment
+
+* Render
+
+## Database Hosting
+
+* MongoDB Atlas
 
 ---
 
-# 💡 Why GreenDot Classroom?
+# 🧠 What I Learned From This Project
 
-Programming instructors often spend significant time manually checking GitHub profiles to verify whether students are coding consistently.
+* MERN Stack Architecture
+* API Integration
+* GitHub GraphQL API
+* JWT Authentication
+* Production Deployment
+* CI/CD Workflow
+* Protected Routes
+* Reusable React Components
+* Custom React Hooks
+* Frontend Service Layer Architecture
+* Debugging Production Build Issues
+* MongoDB Atlas Configuration
+* Vercel + Render Deployment Pipeline
 
-GreenDot Classroom automates this workflow by providing a centralized contribution monitoring dashboard powered by the GitHub GraphQL API.
+---
+
+# 🚀 Future Improvements
+
+* 📈 Weekly Contribution Charts
+* 🏆 Student Leaderboard
+* 📊 Analytics Dashboard
+* 🔍 Search & Pagination
+* 📅 Attendance Tracking
+* 🔔 Notifications System
+* 👨‍🏫 Multiple Classroom Support
+* 📱 Mobile Optimized UI
+* 🌙 Dark / Light Theme
+* 🤖 AI-Based Coding Analytics
 
 ---
 
 # 👨‍💻 Author
 
-Built & Developed by **RayTech Corp** 🚀
+Developed by RayTech Corp 🚀
 
-## Contributors
+GitHub:
+https://github.com/Yashwant361
 
-* Yashwant Ray (Project Lead & Full Stack Developer)
-* Udhave Pingle (Frontend Developer)
-* Aditiya Singh (Frontend Developer)
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a star ⭐ on GitHub.
