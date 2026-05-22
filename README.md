@@ -1,3 +1,4 @@
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 # 🟢 GreenDot Classroom
 
 A modern MERN stack classroom monitoring platform that tracks students' daily GitHub coding activity automatically.
