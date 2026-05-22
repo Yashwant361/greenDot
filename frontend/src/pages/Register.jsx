@@ -1,8 +1,11 @@
 
 import { useState } from "react";
 import BASE_URL from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+
+    const navigate = useNavigate();
 
     const [name, setName] = useState("");
     const [githubProfile, setGithubProfile] = useState("");
@@ -16,7 +19,7 @@ function Register() {
         // Trim spaces
         const trimmedName = name.trim();
         const trimmedGithub =
-        githubProfile.trim();
+            githubProfile.trim();
 
         // Empty field validation
         if (
@@ -32,7 +35,7 @@ function Register() {
 
         // GitHub URL validation
         const githubRegex =
-        /^https:\/\/github\.com\/[A-Za-z0-9_-]+\/?$/;
+            /^https:\/\/github\.com\/[A-Za-z0-9_-]+\/?$/;
 
         if (!githubRegex.test(trimmedGithub)) {
 
@@ -249,13 +252,21 @@ function Register() {
 
                     {
                         loading
-                        ? "Registering..."
-                        : "Register"
+                            ? "Registering..."
+                            : "Register"
                     }
 
                 </button>
 
+                <button
+                    type="button"
+                    onClick={() => navigate("/")}
+                    className="text-sm text-gray-400 hover:text-white"
+                >
+                    ← Back to Home
+                </button>
             </form>
+
 
         </div>
 

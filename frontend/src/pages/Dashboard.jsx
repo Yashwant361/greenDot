@@ -1,4 +1,4 @@
-
+import BASE_URL from "../services/api";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import StudentTable from "../components/StudentTable";
@@ -7,80 +7,89 @@ import useStudents from "../hooks/useStudents";
 
 function Dashboard() {
 
-  const {
+  const { students, loading } = useStudents();
 
-    students,
+  const [selectedSubject, setSelectedSubject] = useState("All");
 
-    loading
+  const filteredStudents = selectedSubject === "All" ? students : students.filter(
 
-  } = useStudents();
+    (student) => student.subject === selectedSubject);
 
-  const [
 
-    selectedSubject,
+  const handleClearAll = async () => {
 
-    setSelectedSubject
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete all students?"
+    );
 
-  ] = useState("All");
+    if (!confirmDelete) return;
 
-  const filteredStudents =
+    try {
 
-    selectedSubject === "All"
+      const token = localStorage.getItem("token");
 
-    ? students
-
-    : students.filter(
-
-        (student) =>
-
-          student.subject ===
-          selectedSubject
-
+      const response = await fetch(
+        `${BASE_URL}/students/all`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
+
+      const data = await response.json();
+
+      alert(data.message);
+
+      // better than reload (optional improvement later)
+      window.location.reload();
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
 
   return (
 
-    <div
-      className="
-      min-h-screen
-      bg-gray-900
-      "
-    >
+    <div className="  min-h-screen bg-gray-900 " >
 
-      <Navbar
+      <Navbar selectedSubject={selectedSubject}
 
-        selectedSubject={
-          selectedSubject
-        }
-
-        setSelectedSubject={
-          setSelectedSubject
-        }
-
+        setSelectedSubject={setSelectedSubject}
       />
 
       <div className="p-8">
 
-        <h1
-          className="
-          text-3xl
-          font-bold
-          text-white
-          mb-6
-          "
-        >
+        <div className="flex justify-between items-center mb-6">
 
-          {selectedSubject} Students
+          <h1 className="text-3xl font-bold text-white">
+            {selectedSubject} Students
+          </h1>
 
-        </h1>
+          <button
+            onClick={handleClearAll}
+            disabled={students.length === 0}
+            className="
+    bg-red-500 px-4 py-2 rounded
+    disabled:bg-gray-600
+  "
+          >
+            Clear All
+          </button>
+
+        </div>
 
         {
 
           loading
 
-          ? <Loading />
+            ? <Loading />
 
-          : (
+            : (
 
               <StudentTable
                 students={
@@ -97,6 +106,8 @@ function Dashboard() {
     </div>
 
   );
+
+
 
 }
 

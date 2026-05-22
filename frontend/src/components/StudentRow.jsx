@@ -3,13 +3,7 @@ function StudentRow({ student }) {
     return (
 
         <tr
-            className="
-      text-center
-      border-t
-      border-gray-700
-      hover:bg-gray-800
-      "
-        >
+            className=" text-center border-t border-gray-700  hover:bg-gray-800  " >
 
             <td className="p-4">
                 {student.name}

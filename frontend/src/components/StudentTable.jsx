@@ -1,6 +1,6 @@
 import StudentRow from "./StudentRow";
 
-function StudentTable({ students }) {
+function StudentTable({ students, contributions }) {
 
     return (
 
@@ -67,13 +67,7 @@ function StudentTable({ students }) {
 
                                 <tr>
 
-                                    <td
-                                        colSpan="6"
-
-                                        className="
-                  text-center
-                  p-6
-                  "
+                                    <td colSpan="6" className="text-center  p-6 "
                                     >
 
                                         No Students Found

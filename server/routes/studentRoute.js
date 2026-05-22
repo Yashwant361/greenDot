@@ -2,7 +2,8 @@ const express = require("express");
 
 const {
     registerStudent,
-    getAllStudents
+    getAllStudents,
+    deleteAllStudents
 } = require("../controllers/studentController");
 
 const authMiddleware = require('../middleware/authMiddleware');
@@ -15,5 +16,7 @@ router.get("/",
     authMiddleware,
     getAllStudents
 );
+
+router.delete("/all", authMiddleware, deleteAllStudents)
 
 module.exports = router;

@@ -71,6 +71,7 @@ function Login() {
 
   return (
 
+
     <div
       className="
       min-h-screen
@@ -238,6 +239,17 @@ function Login() {
           Password: 123456
 
         </div>
+
+        <button
+          type="button"
+          onClick={() => navigate("/")}
+          className="text-sm text-gray-400 hover:text-white"
+        >
+          ← Back to Home
+        </button>
+
+
+
 
       </form>
 

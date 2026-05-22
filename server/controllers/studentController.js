@@ -43,7 +43,28 @@ const getAllStudents = async (req, res) => {
     }
 }
 
+const deleteAllStudents = async (req, res) => {
+    try {
+        const result = await Student.deleteMany();
+        console.log(result);
+
+        if (result.deletedCount === 0) {
+            return res.status(204).json({
+                message: 'No students to delete'
+            })
+        }
+
+        res.status(200).json({
+            message: `${result.deletedCount} students deleted`
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
 
 module.exports = {
-    registerStudent, getAllStudents
+    registerStudent, getAllStudents, deleteAllStudents
 }
