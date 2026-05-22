@@ -1,11 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 function Navbar({
-
-  selectedSubject,
-
-  setSelectedSubject
-
+  selectedSubject,  setSelectedSubject
 }) {
 
   const navigate = useNavigate();

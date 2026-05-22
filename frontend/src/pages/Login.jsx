@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-import { loginTeacher }
-from "../services/authService";
+import { loginTeacher } from "../services/authService";
 
 function Login() {
 

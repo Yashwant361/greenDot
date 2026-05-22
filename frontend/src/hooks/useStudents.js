@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { getStudents }
-    from "../services/studentService";
-
-import { getGithubCommits }
-    from "../services/githubService";
+import { getStudents }  from "../services/studentService";
+import { getGithubCommits }  from "../services/githubService";
 
 function useStudents() {
 
-    const [students, setStudents] =
-        useState([]);
+    const [students, setStudents] = useState([]);
 
-    const [loading, setLoading] =
-        useState(true);
+    const [loading, setLoading] =   useState(true);
 
     useEffect(() => {
 
