@@ -9,65 +9,65 @@ function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] =
-  useState("");
+    useState("");
 
   const [password, setPassword] =
-  useState("");
+    useState("");
 
   const [loading, setLoading] =
-  useState(false);
+    useState(false);
 
   const handleLogin =
-  async (e) => {
+    async (e) => {
 
-    e.preventDefault();
+      e.preventDefault();
 
-    if (!email || !password) {
+      if (!email || !password) {
 
-      alert("Please fill all fields");
+        alert("Please fill all fields");
 
-      return;
-
-    }
-
-    try {
-
-      setLoading(true);
-
-      const data =
-      await loginTeacher(
-        email,
-        password
-      );
-
-      if (data.token) {
-
-        localStorage.setItem(
-          "token",
-          data.token
-        );
-
-        navigate("/dashboard");
-
-      } else {
-
-        alert(data.message);
+        return;
 
       }
 
-    } catch (error) {
+      try {
 
-      console.log(error);
+        setLoading(true);
 
-      alert("Login Failed");
+        const data =
+          await loginTeacher(
+            email,
+            password
+          );
 
-    } finally {
+        if (data.token) {
 
-      setLoading(false);
+          localStorage.setItem(
+            "token",
+            data.token
+          );
 
-    }
+          navigate("/dashboard");
 
-  };
+        } else {
+
+          alert(data.message);
+
+        }
+
+      } catch (error) {
+
+        console.log(error);
+
+        alert("Login Failed");
+
+      } finally {
+
+        setLoading(false);
+
+      }
+
+    };
 
   return (
 
@@ -87,25 +87,44 @@ function Login() {
         onSubmit={handleLogin}
 
         className="
-        bg-gray-800
-        p-8
-        rounded-lg
-        w-96
-        flex
-        flex-col
-        gap-4
-        "
+  bg-gray-800/90
+  backdrop-blur-md
+  border
+  border-gray-700
+  shadow-2xl
+  p-8
+  rounded-2xl
+  w-full
+  max-w-md
+  flex
+  flex-col
+  gap-5
+  "
       >
 
-        <h1
-          className="
-          text-3xl
-          font-bold
-          text-center
-          "
-        >
-          Tutor Login
-        </h1>
+        <div className="text-center">
+
+          <h1
+            className="
+      text-4xl
+      font-extrabold
+      text-green-400
+      "
+          >
+            Tutor Login
+          </h1>
+
+          <p
+            className="
+      text-gray-400
+      mt-2
+      text-sm
+      "
+          >
+            Access GreenDot Classroom Dashboard
+          </p>
+
+        </div>
 
         <input
 
@@ -120,11 +139,17 @@ function Login() {
           }
 
           className="
-          p-3
-          rounded
-          bg-gray-700
-          outline-none
-          "
+    p-3
+    rounded-xl
+    bg-gray-700
+    border
+    border-gray-600
+    outline-none
+    focus:ring-2
+    focus:ring-green-500
+    focus:border-green-500
+    transition
+    "
         />
 
         <input
@@ -139,12 +164,20 @@ function Login() {
             setPassword(e.target.value)
           }
 
+          autoComplete="current-password"
+
           className="
-          p-3
-          rounded
-          bg-gray-700
-          outline-none
-          "
+    p-3
+    rounded-xl
+    bg-gray-700
+    border
+    border-gray-600
+    outline-none
+    focus:ring-2
+    focus:ring-green-500
+    focus:border-green-500
+    transition
+    "
         />
 
         <button
@@ -154,26 +187,57 @@ function Login() {
           disabled={loading}
 
           className="
-          bg-green-500
-          py-3
-          rounded
-          font-semibold
-          hover:bg-green-600
-          disabled:bg-gray-600
-          "
+    bg-green-500
+    py-3
+    rounded-xl
+    font-semibold
+    text-lg
+    hover:bg-green-600
+    transition
+    duration-300
+    disabled:bg-gray-600
+    disabled:cursor-not-allowed
+    "
         >
 
           {
 
             loading
 
-            ? "Logging In..."
+              ? "Logging In..."
 
-            : "Login"
+              : "Login"
 
           }
 
         </button>
+
+        <div
+          className="
+    bg-gray-900
+    border
+    border-gray-700
+    rounded-xl
+    p-3
+    text-sm
+    text-gray-300
+    text-center
+    "
+        >
+
+          <span className="text-green-400 font-semibold">
+            Demo Credentials
+          </span>
+
+          <br />
+
+          admin@gmail.com
+
+          <br />
+
+          Password: 123456
+
+        </div>
 
       </form>
 
