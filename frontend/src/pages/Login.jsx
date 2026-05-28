@@ -8,66 +8,58 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const [email, setEmail] =
-    useState("");
+  const [email, setEmail] = useState("");
 
-  const [password, setPassword] =
-    useState("");
+  const [password, setPassword] = useState("");
 
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin =
-    async (e) => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-      e.preventDefault();
+    if (!email || !password) {
 
-      if (!email || !password) {
+      alert("Please fill all fields");
 
-        alert("Please fill all fields");
+      return;
 
-        return;
+    }
 
-      }
+    try {
 
-      try {
+      setLoading(true);
 
-        setLoading(true);
+      const data = await loginTeacher(
+        email,
+        password
+      );
 
-        const data =
-          await loginTeacher(
-            email,
-            password
-          );
+      if (data.token) {
 
-        if (data.token) {
+        localStorage.setItem("token", data.token);
 
-          localStorage.setItem(
-            "token",
-            data.token
-          );
+        // navigate("/dashboard");
+        window.location.href = "/dashboard"
 
-          navigate("/dashboard");
+      } else {
 
-        } else {
-
-          alert(data.message);
-
-        }
-
-      } catch (error) {
-
-        console.log(error);
-
-        alert("Login Failed");
-
-      } finally {
-
-        setLoading(false);
+        alert(data.message);
 
       }
 
-    };
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Login Failed");
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
+  };
 
   return (
 
