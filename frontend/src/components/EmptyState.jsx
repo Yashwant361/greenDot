@@ -1,7 +1,5 @@
 function EmptyState() {
-
   return (
-
     <div
       className="
       text-center
@@ -10,13 +8,9 @@ function EmptyState() {
       text-xl
       "
     >
-
       No Students Found
-
     </div>
-
   );
-
 }
 
 export default EmptyState;

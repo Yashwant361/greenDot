@@ -1,5 +1,4 @@
 export const SUBJECTS = [
-
   "All",
 
   "HTML",
@@ -12,6 +11,5 @@ export const SUBJECTS = [
 
   "MERN",
 
-  "DSA"
-
+  "DSA",
 ];

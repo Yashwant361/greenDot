@@ -1,39 +1,17 @@
 import { useNavigate } from "react-router-dom";
 
-function Navbar({
-  selectedSubject,  setSelectedSubject
-}) {
-
+function Navbar({ selectedSubject, setSelectedSubject }) {
   const navigate = useNavigate();
 
-  const subjects = [
-
-    "All",
-
-    "HTML",
-
-    "CSS",
-
-    "JavaScript",
-
-    "React",
-
-    "MERN",
-
-    "DSA"
-
-  ];
+  const subjects = ["All", "HTML", "CSS", "JavaScript", "React", "MERN", "DSA"];
 
   const handleLogout = () => {
-
     localStorage.removeItem("token");
 
     navigate("/login");
-
   };
 
   return (
-
     <div
       className="
       bg-gray-800
@@ -45,7 +23,6 @@ function Navbar({
       gap-4
       "
     >
-
       {/* LOGO */}
 
       <h1
@@ -67,51 +44,33 @@ function Navbar({
         gap-2
         "
       >
-
-        {
-
-          subjects.map((subject) => (
-
-            <button
-
-              key={subject}
-
-              onClick={() =>
-                setSelectedSubject(subject)
-              }
-
-              className={`
+        {subjects.map((subject) => (
+          <button
+            key={subject}
+            onClick={() => setSelectedSubject(subject)}
+            className={`
               px-4
               py-2
               rounded
               font-semibold
               transition
 
-              ${selectedSubject === subject
-
-                ? "bg-green-500"
-
-                : "bg-gray-700 hover:bg-gray-600"
+              ${
+                selectedSubject === subject
+                  ? "bg-green-500"
+                  : "bg-gray-700 hover:bg-gray-600"
               }
               `}
-            >
-
-              {subject}
-
-            </button>
-
-          ))
-
-        }
-
+          >
+            {subject}
+          </button>
+        ))}
       </div>
 
       {/* LOGOUT */}
 
       <button
-
         onClick={handleLogout}
-
         className="
         bg-red-500
         px-4
@@ -122,11 +81,8 @@ function Navbar({
       >
         Logout
       </button>
-
     </div>
-
   );
-
 }
 
 export default Navbar;

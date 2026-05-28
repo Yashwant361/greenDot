@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 import { loginTeacher } from "../services/authService";
 
 function Login() {
-
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -18,52 +16,34 @@ function Login() {
     e.preventDefault();
 
     if (!email || !password) {
-
       alert("Please fill all fields");
 
       return;
-
     }
 
     try {
-
       setLoading(true);
 
-      const data = await loginTeacher(
-        email,
-        password
-      );
+      const data = await loginTeacher(email, password);
 
       if (data.token) {
-
         localStorage.setItem("token", data.token);
 
         // navigate("/dashboard");
-        window.location.href = "/dashboard"
-
+        window.location.href = "/dashboard";
       } else {
-
         alert(data.message);
-
       }
-
     } catch (error) {
-
       console.log(error);
 
       alert("Login Failed");
-
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
   return (
-
-
     <div
       className="
       min-h-screen
@@ -74,11 +54,8 @@ function Login() {
       text-white
       "
     >
-
       <form
-
         onSubmit={handleLogin}
-
         className="
   bg-gray-800/90
   backdrop-blur-md
@@ -94,9 +71,7 @@ function Login() {
   gap-5
   "
       >
-
         <div className="text-center">
-
           <h1
             className="
       text-4xl
@@ -116,21 +91,13 @@ function Login() {
           >
             Access GreenDot Classroom Dashboard
           </p>
-
         </div>
 
         <input
-
           type="email"
-
           placeholder="Enter Email"
-
           value={email}
-
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
-
+          onChange={(e) => setEmail(e.target.value)}
           className="
     p-3
     rounded-xl
@@ -146,19 +113,11 @@ function Login() {
         />
 
         <input
-
           type="password"
-
           placeholder="Enter Password"
-
           value={password}
-
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
-
+          onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
-
           className="
     p-3
     rounded-xl
@@ -174,11 +133,8 @@ function Login() {
         />
 
         <button
-
           type="submit"
-
           disabled={loading}
-
           className="
     bg-green-500
     py-3
@@ -192,17 +148,7 @@ function Login() {
     disabled:cursor-not-allowed
     "
         >
-
-          {
-
-            loading
-
-              ? "Logging In..."
-
-              : "Login"
-
-          }
-
+          {loading ? "Logging In..." : "Login"}
         </button>
 
         <div
@@ -217,19 +163,11 @@ function Login() {
     text-center
     "
         >
-
-          <span className="text-green-400 font-semibold">
-            Demo Credentials
-          </span>
-
+          <span className="text-green-400 font-semibold">Demo Credentials</span>
           <br />
-
           admin@gmail.com
-
           <br />
-
           Password: 123456
-
         </div>
 
         <button
@@ -239,16 +177,9 @@ function Login() {
         >
           ← Back to Home
         </button>
-
-
-
-
       </form>
-
     </div>
-
   );
-
 }
 
 export default Login;

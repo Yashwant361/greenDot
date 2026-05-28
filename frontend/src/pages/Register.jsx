@@ -1,119 +1,80 @@
-
 import { useState } from "react";
 import BASE_URL from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [githubProfile, setGithubProfile] = useState("");
+  const [subject, setSubject] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const [name, setName] = useState("");
-    const [githubProfile, setGithubProfile] = useState("");
-    const [subject, setSubject] = useState("");
-    const [loading, setLoading] = useState(false);
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
-    const handleRegister = async (e) => {
+    // Trim spaces
+    const trimmedName = name.trim();
+    const trimmedGithub = githubProfile.trim();
 
-        e.preventDefault();
+    // Empty field validation
+    if (!trimmedName || !trimmedGithub || !subject) {
+      alert("Please fill all fields");
+      return;
+    }
 
-        // Trim spaces
-        const trimmedName = name.trim();
-        const trimmedGithub =
-            githubProfile.trim();
+    // GitHub URL validation
+    const githubRegex = /^https:\/\/github\.com\/[A-Za-z0-9_-]+\/?$/;
 
-        // Empty field validation
-        if (
-            !trimmedName ||
-            !trimmedGithub ||
-            !subject
-        ) {
+    if (!githubRegex.test(trimmedGithub)) {
+      alert("Enter valid GitHub profile URL");
 
-            alert("Please fill all fields");
-            return;
+      return;
+    }
 
-        }
+    try {
+      setLoading(true);
 
-        // GitHub URL validation
-        const githubRegex =
-            /^https:\/\/github\.com\/[A-Za-z0-9_-]+\/?$/;
+      const response = await fetch(`${BASE_URL}/students`, {
+        method: "POST",
 
-        if (!githubRegex.test(trimmedGithub)) {
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-            alert(
-                "Enter valid GitHub profile URL"
-            );
+        body: JSON.stringify({
+          name: trimmedName,
+          githubProfile: trimmedGithub,
+          subject,
+        }),
+      });
 
-            return;
+      const data = await response.json();
 
-        }
+      console.log(data);
 
-        try {
+      if (response.ok) {
+        alert(data.message || "Student Registered Successfully");
 
-            setLoading(true);
+        // Clear Inputs
+        setName("");
+        setGithubProfile("");
+        setSubject("");
+      } else {
+        alert(data.message || "Registration Failed");
+      }
+    } catch (error) {
+      console.log(error);
 
-            const response = await fetch(
-                `${BASE_URL}/students`,
-                {
-                    method: "POST",
+      alert("Server error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        name: trimmedName,
-                        githubProfile: trimmedGithub,
-                        subject
-                    })
-                }
-            );
-
-            const data = await response.json();
-
-            console.log(data);
-
-            if (response.ok) {
-
-                alert(
-                    data.message ||
-                    "Student Registered Successfully"
-                );
-
-                // Clear Inputs
-                setName("");
-                setGithubProfile("");
-                setSubject("");
-
-            } else {
-
-                alert(
-                    data.message ||
-                    "Registration Failed"
-                );
-
-            }
-
-        } catch (error) {
-
-            console.log(error);
-
-            alert(
-                "Server error. Please try again."
-            );
-
-        } finally {
-
-            setLoading(false);
-
-        }
-
-    };
-
-    return (
-
-        <div
-            className="
+  return (
+    <div
+      className="
             min-h-screen
             bg-gray-900
             flex
@@ -121,12 +82,10 @@ function Register() {
             justify-center
             text-white
             "
-        >
-
-            <form
-                onSubmit={handleRegister}
-
-                className="
+    >
+      <form
+        onSubmit={handleRegister}
+        className="
                 bg-gray-800
                 p-8
                 rounded-lg
@@ -136,111 +95,72 @@ function Register() {
                 gap-4
                 shadow-lg
                 "
-            >
-
-                <h1
-                    className="
+      >
+        <h1
+          className="
                     text-3xl
                     font-bold
                     text-center
                     "
-                >
-                    Student Registration
-                </h1>
+        >
+          Student Registration
+        </h1>
 
-                <input
-                    type="text"
-
-                    placeholder="Enter Name"
-
-                    value={name}
-
-                    onChange={(e) =>
-                        setName(e.target.value)
-                    }
-
-                    className="
+        <input
+          type="text"
+          placeholder="Enter Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="
                     p-3
                     rounded
                     bg-gray-700
                     outline-none
                     "
-                />
+        />
 
-                <input
-                    type="text"
-
-                    placeholder=
-                    "GitHub Profile URL"
-
-                    value={githubProfile}
-
-                    onChange={(e) =>
-                        setGithubProfile(
-                            e.target.value
-                        )
-                    }
-
-                    className="
+        <input
+          type="text"
+          placeholder="GitHub Profile URL"
+          value={githubProfile}
+          onChange={(e) => setGithubProfile(e.target.value)}
+          className="
                     p-3
                     rounded
                     bg-gray-700
                     outline-none
                     "
-                />
+        />
 
-                <select
-
-                    value={subject}
-
-                    onChange={(e) =>
-                        setSubject(e.target.value)
-                    }
-
-                    className="
+        <select
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          className="
                     p-3
                     rounded
                     bg-gray-700
                     outline-none
                     "
-                >
+        >
+          <option value="">Select Subject</option>
 
-                    <option value="">
-                        Select Subject
-                    </option>
+          <option value="HTML">HTML</option>
 
-                    <option value="HTML">
-                        HTML
-                    </option>
+          <option value="CSS">CSS</option>
 
-                    <option value="CSS">
-                        CSS
-                    </option>
+          <option value="JavaScript">JavaScript</option>
 
-                    <option value="JavaScript">
-                        JavaScript
-                    </option>
+          <option value="React">React</option>
 
-                    <option value="React">
-                        React
-                    </option>
+          <option value="MERN">MERN</option>
 
-                    <option value="MERN">
-                        MERN
-                    </option>
+          <option value="DSA">DSA</option>
+        </select>
 
-                    <option value="DSA">
-                        DSA
-                    </option>
-
-                </select>
-
-                <button
-                    type="submit"
-
-                    disabled={loading}
-
-                    className="
+        <button
+          type="submit"
+          disabled={loading}
+          className="
                     bg-blue-500
                     py-3
                     rounded
@@ -248,30 +168,20 @@ function Register() {
                     hover:bg-blue-600
                     disabled:bg-gray-500
                     "
-                >
+        >
+          {loading ? "Registering..." : "Register"}
+        </button>
 
-                    {
-                        loading
-                            ? "Registering..."
-                            : "Register"
-                    }
-
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => navigate("/")}
-                    className="text-sm text-gray-400 hover:text-white"
-                >
-                    ← Back to Home
-                </button>
-            </form>
-
-
-        </div>
-
-    );
-
+        <button
+          type="button"
+          onClick={() => navigate("/")}
+          className="text-sm text-gray-400 hover:text-white"
+        >
+          ← Back to Home
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default Register;

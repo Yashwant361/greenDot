@@ -1,13 +1,7 @@
 import BASE_URL from "./api";
 
-export const getGithubCommits =
-    async (username) => {
+export const getGithubCommits = async (username) => {
+  const response = await fetch(`${BASE_URL}/github/${username}`);
 
-        const response = await fetch(
-
-            `${BASE_URL}/github/${username}`
-        );
-
-        return await response.json()
-
-    }
+  return await response.json();
+};

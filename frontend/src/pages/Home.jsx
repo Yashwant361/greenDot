@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 
 function Home() {
-
   return (
-
     <>
-    
       <div
         className="
       min-h-screen
@@ -18,7 +15,6 @@ function Home() {
       gap-6
       "
       >
-
         <h1
           className="
         text-5xl
@@ -38,9 +34,7 @@ function Home() {
         </p>
 
         <div className="flex gap-4">
-
           <Link to="/login">
-
             <button
               className="
             bg-green-500
@@ -53,11 +47,9 @@ function Home() {
             >
               Tutor Login
             </button>
-
           </Link>
 
           <Link to="/register">
-
             <button
               className="
             bg-blue-500
@@ -70,15 +62,11 @@ function Home() {
             >
               Student Registration
             </button>
-
           </Link>
-
         </div>
-
       </div>
     </>
   );
-
 }
 
 export default Home;
